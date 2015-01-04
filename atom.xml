@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[h_bf' blog]]></title>
+  <title><![CDATA[hades_h' blog]]></title>
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-04T06:54:47.168Z</updated>
+  <updated>2015-01-04T07:49:39.333Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
-    <name><![CDATA[h_bf]]></name>
+    <name><![CDATA[hades_h]]></name>
     <email><![CDATA[hades_h@126.com]]></email>
   </author>
   
