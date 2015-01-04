@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[h_bf' blog]]></title>
+  <subtitle><![CDATA[Hello world!]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://nevernil.com/"/>
+  <updated>2015-01-04T06:54:47.168Z</updated>
+  <id>http://nevernil.com/</id>
+  
+  <author>
+    <name><![CDATA[h_bf]]></name>
+    <email><![CDATA[hades_h@126.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hello world]]></title>
+    <link href="http://nevernil.com/2015/01/04/Hello-world/"/>
+    <id>http://nevernil.com/2015/01/04/Hello-world/</id>
+    <published>2015-01-04T05:53:28.000Z</published>
+    <updated>2015-01-04T06:07:50.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="开始">开始</h3>
+<p>折腾了几天，中间还有个元旦，终于把博客弄好了，准备开搞！<br>let the hunt begin!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="开始">开始</h3>
+<p>折腾了几天，中间还有个元旦，终于把博客弄好了，准备开搞！<br>let the hunt begin!</p>
+]]>
+    </summary>
+    
+      <category term="others" scheme="http://nevernil.com/categories/others/"/>
+    
+  </entry>
+  
+</feed>
