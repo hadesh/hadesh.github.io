@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-05T05:54:31.926Z</updated>
+  <updated>2015-01-05T06:09:00.857Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
@@ -99,10 +99,18 @@
     <link href="http://nevernil.com/2015/01/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%AE%9E%E7%8E%B0%E4%BA%86%E6%9F%90%E6%96%B9%E6%B3%95%E8%80%8C%E9%9D%9E%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5/"/>
     <id>http://nevernil.com/2015/01/05/判断一个对象是否实现了某方法而非继承而来/</id>
     <published>2015-01-05T03:05:42.000Z</published>
-    <updated>2015-01-05T03:17:29.000Z</updated>
-    <content type="html"><![CDATA[]]></content>
+    <updated>2015-01-05T06:08:57.000Z</updated>
+    <content type="html"><![CDATA[<p>首先需要引入<code>#import &lt;objc/runtime.h&gt;</code></p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (BOOL)realRespondsToSelector:(SEL)selector</div><div class="line">{</div><div class="line">    BOOL result = NO;</div><div class="line">    u_int count;</div><div class="line">    Method *methods= class_copyMethodList([self <span class="keyword">class</span>], &count);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count ; i++)</div><div class="line">    {</div><div class="line">        SEL name = method_getName(methods[i]);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (name == selector)</div><div class="line">        {</div><div class="line">            result = YES;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        }</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (methods != NULL)</div><div class="line">    {</div><div class="line">        <span class="built_in">free</span>(methods);</div><div class="line">        methods = NULL;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>===<br>直接使用NSObject的<code>respondsToSelector:</code>是不能判断一个方法到底是自己实现的还是其父类实现的。<br>这里用到了runtime中的<code>class_copyMethodList</code>，该方法获取到的方法列表不包括其父类的。</p>
+<p>打印出对象所有的方法：</p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">u_int count;</div><div class="line">Method *methods= class_copyMethodList([self <span class="keyword">class</span>], &count);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count ; i++)</div><div class="line">{</div><div class="line">	SEL name = method_getName(methods[i]);</div><div class="line">	NSString *strName = [NSString  stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];</div><div class="line">	NSLog(@<span class="string">"%@: %@"</span>, [self <span class="keyword">class</span>], strName);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
     <summary type="html">
-    <![CDATA[]]>
+    <![CDATA[<p>首先需要引入<code>#import &lt;objc/runtime.h&gt;</code></p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">]]>
     </summary>
     
       <category term="objc" scheme="http://nevernil.com/tags/objc/"/>
