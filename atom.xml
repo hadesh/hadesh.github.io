@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-04T10:13:23.973Z</updated>
+  <updated>2015-01-05T04:34:27.308Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
@@ -13,6 +13,104 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[markdown学习]]></title>
+    <link href="http://nevernil.com/2015/01/05/markdown%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://nevernil.com/2015/01/05/markdown学习/</id>
+    <published>2015-01-05T03:53:56.000Z</published>
+    <updated>2015-01-05T04:34:05.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="常用语法">常用语法</h2>
+<h3 id="特殊字体">特殊字体</h3>
+<p><code>**粗体**</code><br><strong>粗体</strong></p>
+<p><code>*斜体*</code><br><em>斜体</em></p>
+<h3 id="标题">标题</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor"># 一级标题</span></div><div class="line"><span class="preprocessor">## 二级标题</span></div><div class="line"><span class="preprocessor">### 三级标题</span></div><div class="line"><span class="preprocessor">#### 四级标题</span></div><div class="line"><span class="preprocessor">##### 五级标题</span></div><div class="line"><span class="preprocessor">###### 六级标题</span></div></pre></td></tr></table></figure>
+
+<h3 id="引用">引用</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">&gt; 这里是引用</span></span></div><div class="line">&gt;&gt; 这里是二级引用</div><div class="line">&gt; 还是引用</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里是引用</p>
+<blockquote>
+<p>这里是二级引用<br>还是引用 </p>
+</blockquote>
+</blockquote>
+<h3 id="列表">列表</h3>
+<p>无序列表直接使用<code>*/+/-</code>作为标记。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">* red</div><div class="line">  -<span class="ruby"> red <span class="number">1</span></span></div><div class="line">  -<span class="ruby"> red <span class="number">2</span></span></div><div class="line">  -<span class="ruby"> red <span class="number">3</span></span></div><div class="line">* green</div><div class="line">* blue</div></pre></td></tr></table></figure>
+
+<h3 id="代码区块">代码区块</h3>
+<p>使用三个反引号</p>
+<figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+ (Class)layerClass</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> [CATiledLayer <span class="keyword">class</span>];</div><div class="line">}</div><div class="line"></div><div class="line">- (CATiledLayer *)tiledLayer</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> (CATiledLayer *)self.layer;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="分割线">分割线</h3>
+<p>连续三个星号（或者减号、加号）<br><code>***</code></p>
+<hr>
+<h3 id="绘制表格">绘制表格</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">价格</th>
+<th style="text-align:center">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算机</td>
+<td style="text-align:right">$1600</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td style="text-align:right">$12</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">234</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接">链接</h3>
+<p>链接文字以[方括号]来标记，后面紧跟(圆括号)里是实际链接地址。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">This is [<span class="link_label">an example</span>](<span class="link_url">http://example.com/ "Title"</span>) inline link.</div><div class="line">[<span class="link_label">This link</span>](<span class="link_url">http://example.net/</span>) has no title attribute.</div></pre></td></tr></table></figure>
+
+<p>This is <a href="http://example.com/" title="Title" target="_blank" rel="external">an example</a> inline link.<br><a href="http://example.net/" target="_blank" rel="external">This link</a> has no title attribute.</p>
+<h3 id="图片">图片</h3>
+<p>使用 ![描述](图片链接地址) 插入图像。</p>
+<p><code>![我的头像](http://hades.qiniudn.com/gragon220.png)</code><br><img src="http://hades.qiniudn.com/gragon220.png" alt="我的头像">`</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="常用语法">常用语法</h2>
+<h3 id="特殊字体">特殊字体</h3>
+<p><code>**粗体**</code><br><strong>粗体</strong></p>
+<p><code>*斜体*</code><br><em>斜体</em></p>
+<h]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[判断一个对象是否实现了某方法而非继承而来]]></title>
+    <link href="http://nevernil.com/2015/01/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%AE%9E%E7%8E%B0%E4%BA%86%E6%9F%90%E6%96%B9%E6%B3%95%E8%80%8C%E9%9D%9E%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5/"/>
+    <id>http://nevernil.com/2015/01/05/判断一个对象是否实现了某方法而非继承而来/</id>
+    <published>2015-01-05T03:05:42.000Z</published>
+    <updated>2015-01-05T03:17:29.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    <summary type="html">
+    <![CDATA[]]>
+    </summary>
+    
+      <category term="objc" scheme="http://nevernil.com/tags/objc/"/>
+    
+      <category term="runtime" scheme="http://nevernil.com/tags/runtime/"/>
+    
+      <category term="iOS" scheme="http://nevernil.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Hello world]]></title>
