@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-05T04:34:27.308Z</updated>
+  <updated>2015-01-05T05:39:37.539Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://nevernil.com/2015/01/05/markdown%E5%AD%A6%E4%B9%A0/"/>
     <id>http://nevernil.com/2015/01/05/markdown学习/</id>
     <published>2015-01-05T03:53:56.000Z</published>
-    <updated>2015-01-05T04:34:05.000Z</updated>
+    <updated>2015-01-05T05:39:32.000Z</updated>
     <content type="html"><![CDATA[<h2 id="常用语法">常用语法</h2>
 <h3 id="特殊字体">特殊字体</h3>
 <p><code>**粗体**</code><br><strong>粗体</strong></p>
@@ -81,7 +81,8 @@
 <p>This is <a href="http://example.com/" title="Title" target="_blank" rel="external">an example</a> inline link.<br><a href="http://example.net/" target="_blank" rel="external">This link</a> has no title attribute.</p>
 <h3 id="图片">图片</h3>
 <p>使用 ![描述](图片链接地址) 插入图像。</p>
-<p><code>![我的头像](http://hades.qiniudn.com/gragon220.png)</code><br><img src="http://hades.qiniudn.com/gragon220.png" alt="我的头像">`</p>
+<p><code>![我的头像](http://hades.qiniudn.com/gragon220.png)</code></p>
+<p><img src="http://hades.qiniudn.com/gragon220.png" alt="我的头像"></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="常用语法">常用语法</h2>
