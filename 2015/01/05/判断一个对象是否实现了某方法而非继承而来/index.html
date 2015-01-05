@@ -75,7 +75,7 @@
     </p>
   <p class="article-time">
     <time datetime="2015-01-05T03:05:42.000Z" itemprop="datePublished">1月 5 2015</time>
-    更新日期:<time datetime="2015-01-05T06:08:57.000Z" itemprop="dateModified">1月 5 2015</time>
+    更新日期:<time datetime="2015-01-05T06:15:15.000Z" itemprop="dateModified">1月 5 2015</time>
     
   </p>
 </header>
@@ -90,7 +90,8 @@
 		<p>首先需要引入<code>#import &lt;objc/runtime.h&gt;</code></p>
 <figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (BOOL)realRespondsToSelector:(SEL)selector</div><div class="line">{</div><div class="line">    BOOL result = NO;</div><div class="line">    u_int count;</div><div class="line">    Method *methods= class_copyMethodList([self <span class="keyword">class</span>], &count);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count ; i++)</div><div class="line">    {</div><div class="line">        SEL name = method_getName(methods[i]);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (name == selector)</div><div class="line">        {</div><div class="line">            result = YES;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        }</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (methods != NULL)</div><div class="line">    {</div><div class="line">        <span class="built_in">free</span>(methods);</div><div class="line">        methods = NULL;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>===<br>直接使用NSObject的<code>respondsToSelector:</code>是不能判断一个方法到底是自己实现的还是其父类实现的。<br>这里用到了runtime中的<code>class_copyMethodList</code>，该方法获取到的方法列表不包括其父类的。</p>
+<hr>
+<p>直接使用NSObject的<code>respondsToSelector:</code>是不能判断一个方法到底是自己实现的还是其父类实现的。<br>这里用到了runtime中的<code>class_copyMethodList</code>，该方法获取到的方法列表不包括其父类的。</p>
 <p>打印出对象所有的方法：</p>
 <figure class="highlight C++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">u_int count;</div><div class="line">Method *methods= class_copyMethodList([self <span class="keyword">class</span>], &count);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count ; i++)</div><div class="line">{</div><div class="line">	SEL name = method_getName(methods[i]);</div><div class="line">	NSString *strName = [NSString  stringWithCString:sel_getName(name) encoding:NSUTF8StringEncoding];</div><div class="line">	NSLog(@<span class="string">"%@: %@"</span>, [self <span class="keyword">class</span>], strName);</div><div class="line">}</div></pre></td></tr></table></figure>
 
@@ -186,6 +187,8 @@
 		
 			<li><a href="/categories/others/" title="others">others<sup>1</sup></a></li>
 		
+			<li><a href="/categories/study/" title="study">study<sup>1</sup></a></li>
+		
 		</ul>
 </div>
 
@@ -194,6 +197,10 @@
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
+		
+			<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
+		
+			<li><a href="/tags/markdown/" title="markdown">markdown<sup>1</sup></a></li>
 		
 			<li><a href="/tags/objc/" title="objc">objc<sup>1</sup></a></li>
 		
