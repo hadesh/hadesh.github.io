@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-05T06:15:24.689Z</updated>
+  <updated>2015-01-05T10:23:04.700Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[markdown学习]]></title>
-    <link href="http://nevernil.com/2015/01/05/markdown%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://nevernil.com/2015/01/05/markdown学习/</id>
+    <title><![CDATA[Markdown学习]]></title>
+    <link href="http://nevernil.com/2015/01/05/Markdown%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://nevernil.com/2015/01/05/Markdown学习/</id>
     <published>2015-01-05T03:53:56.000Z</published>
-    <updated>2015-01-05T06:14:44.000Z</updated>
+    <updated>2015-01-05T10:22:17.000Z</updated>
     <content type="html"><![CDATA[<h2 id="常用语法">常用语法</h2>
 <h3 id="特殊字体">特殊字体</h3>
 <p><code>**粗体**</code><br><strong>粗体</strong></p>
