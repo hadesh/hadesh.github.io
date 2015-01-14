@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Hello world!]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://nevernil.com/"/>
-  <updated>2015-01-07T09:38:05.026Z</updated>
+  <updated>2015-01-14T08:53:57.379Z</updated>
   <id>http://nevernil.com/</id>
   
   <author>
@@ -15,11 +15,38 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[__bridge相关]]></title>
+    <link href="http://nevernil.com/2015/01/14/-bridge%E7%9B%B8%E5%85%B3/"/>
+    <id>http://nevernil.com/2015/01/14/-bridge相关/</id>
+    <published>2015-01-14T07:08:58.000Z</published>
+    <updated>2015-01-14T08:53:45.000Z</updated>
+    <content type="html"><![CDATA[<p>当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到<code>__bridge</code>, <code>__bridge_retained</code> 和 <code>__bridge_transfer</code> 三个转换关键字。</p>
+<p><strong>__bridge</strong> 只做类型转换，不修改对象生命周期的管理权；</p>
+<p><strong>__bridge_retained</strong> 将Objective-C的对象转换为Core Foundation的对象，同时将对象内存的管理权交给CF，后续需要使用CFRelease或者相关方法来释放对象；</p>
+<p><strong>__bridge_transfer</strong> 将Core Foundation的对象转换为Objective-C的对象，同时将对象内存的管理权交给ARC。</p>
+<p><code>NSObject.h</code>中有两个方法，<code>CFBridgingRetain</code> 和 <code>CFBridgingRelease</code>.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NS_INLINE CF_RETURNS_RETAINED CFTypeRef CFBridgingRetain(<span class="keyword">id</span> X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_retained CFTypeRef)X;</div><div class="line">}</div><div class="line"></div><div class="line">NS_INLINE <span class="keyword">id</span> CFBridgingRelease(CFTypeRef CF_CONSUMED X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_transfer <span class="keyword">id</span>)X;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>其中<code>CFBridgingRetain</code>执行后必须执行<code>CFRelease</code>来对转换的对象进行释放。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到<code>__bridge</code>, <code>__bridge_retained</code> 和 <code>__bridge_tra]]>
+    </summary>
+    
+      <category term="objc" scheme="http://nevernil.com/tags/objc/"/>
+    
+      <category term="arc" scheme="http://nevernil.com/tags/arc/"/>
+    
+      <category term="iOS" scheme="http://nevernil.com/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Markdown学习]]></title>
     <link href="http://nevernil.com/2015/01/05/Markdown%E5%AD%A6%E4%B9%A0/"/>
     <id>http://nevernil.com/2015/01/05/Markdown学习/</id>
     <published>2015-01-05T03:53:56.000Z</published>
-    <updated>2015-01-05T10:22:17.000Z</updated>
+    <updated>2015-01-14T08:43:49.000Z</updated>
     <content type="html"><![CDATA[<h2 id="常用语法">常用语法</h2>
 <h3 id="特殊字体">特殊字体</h3>
 <p><code>**粗体**</code><br><strong>粗体</strong></p>
@@ -48,6 +75,8 @@
 <p>连续三个星号（或者减号、加号）<br><code>***</code></p>
 <hr>
 <h3 id="绘制表格">绘制表格</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| 项目        | 价格   |  数量  |</div><div class="line">| --------   | -----<span class="symbol">:</span>  | <span class="symbol">:----</span><span class="symbol">:</span>  |</div><div class="line">| 计算机     | <span class="variable">$1600</span> |   <span class="number">5</span>     |</div><div class="line">| 手机        |   <span class="variable">$12</span>   |   <span class="number">12</span>   |</div><div class="line">| 管线        |    <span class="variable">$1</span>    |  <span class="number">234</span>  |</div></pre></td></tr></table></figure>
+
 <table>
 <thead>
 <tr>

@@ -4,10 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>hades_h&#39; blog</title>
+    <title>__bridge相关 | hades_h&#39; blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="hades_h">
+    
+    <meta name="description" content="当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到__bridge, __bridge_retained 和 __bridge_transfer 三个转换关键字。
+__bridge 只做类型转换，不修改对象生命周期的管理权；">
     
     
     
@@ -70,84 +73,93 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/01/14/-bridge相关/" title="__bridge相关" itemprop="url">
-  
-      <time datetime="2015-01-14T07:08:58.000Z" itemprop="datePublished">1月 14 2015</time>
-    <h1 itemprop="name">__bridge相关</h1>
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到__bridge, __bridge_retained 和 __bridge_transfer 三个转换关键字。
-__bridge 只做类型转换，不修改对</p>
-        
+      <a href="/2015/01/14/-bridge相关/" title="__bridge相关" itemprop="url">__bridge相关</a>
+  </h1>
+  <p class="article-author">By
     
-  </a>
-</section>
+      <a href="http://nevernil.com" title="hades_h">hades_h</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-01-14T07:08:58.000Z" itemprop="datePublished">1月 14 2015</time>
+    更新日期:<time datetime="2015-01-14T08:53:45.000Z" itemprop="dateModified">1月 14 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		</div>
+		
+		<p>当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到<code>__bridge</code>, <code>__bridge_retained</code> 和 <code>__bridge_transfer</code> 三个转换关键字。</p>
+<p><strong>__bridge</strong> 只做类型转换，不修改对象生命周期的管理权；</p>
+<p><strong>__bridge_retained</strong> 将Objective-C的对象转换为Core Foundation的对象，同时将对象内存的管理权交给CF，后续需要使用CFRelease或者相关方法来释放对象；</p>
+<p><strong>__bridge_transfer</strong> 将Core Foundation的对象转换为Objective-C的对象，同时将对象内存的管理权交给ARC。</p>
+<p><code>NSObject.h</code>中有两个方法，<code>CFBridgingRetain</code> 和 <code>CFBridgingRelease</code>.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NS_INLINE CF_RETURNS_RETAINED CFTypeRef CFBridgingRetain(<span class="keyword">id</span> X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_retained CFTypeRef)X;</div><div class="line">}</div><div class="line"></div><div class="line">NS_INLINE <span class="keyword">id</span> CFBridgingRelease(CFTypeRef CF_CONSUMED X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_transfer <span class="keyword">id</span>)X;</div><div class="line">}</div></pre></td></tr></table></figure>
 
-  <section class="post" itemscope itemprop="blogPost">
+<p>其中<code>CFBridgingRetain</code>执行后必须执行<code>CFRelease</code>来对转换的对象进行释放。</p>
   
-    <a href="/2015/01/05/Markdown学习/" title="Markdown学习" itemprop="url">
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
   
-      <time datetime="2015-01-05T03:53:56.000Z" itemprop="datePublished">1月 5 2015</time>
-    <h1 itemprop="name">Markdown学习</h1>
-    
-     
-           <p itemprop="description" >常用语法
-特殊字体
-**粗体**粗体
-*斜体*斜体
-标题
-123456# 一级标题## 二级标题### 三级标题#### 四级标题##### 五级标题###### 六级标题
-
-引用
-123&amp;gt; 这里是引用&amp;gt;&amp;gt; 这里是二级引用&amp;gt; 还是引用
+  <span></span> <a href="/tags/objc/">objc</a><a href="/tags/arc/">arc</a>
+  </div>
 
 
-这里是引用
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
 
-这</p>
-        
-    
-  </a>
-</section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/01/05/判断一个对象是否实现了某方法而非继承而来/" title="判断一个对象是否实现了某方法而非继承而来" itemprop="url">
-  
-      <time datetime="2015-01-05T03:05:42.000Z" itemprop="datePublished">1月 5 2015</time>
-    <h1 itemprop="name">判断一个对象是否实现了某方法而非继承而来</h1>
-    
-     
-           <p itemprop="description" >首先需要引入#import &amp;lt;objc/runtime.h&amp;gt;
-123456789101112131415161718192021222324- (BOOL)realRespondsToSelector:(SEL)selector{    BOOL result = N</p>
-        
-    
-  </a>
-</section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/01/04/Hello-world/" title="Hello world" itemprop="url">
-  
-      <time datetime="2015-01-04T05:53:28.000Z" itemprop="datePublished">1月 4 2015</time>
-    <h1 itemprop="name">Hello world</h1>
-    
-     
-           <p itemprop="description" >开始
-折腾了几天，中间还有个元旦，终于把博客弄好了，准备开搞！let the hunt begin!</p>
-        
-    
-  </a>
-</section>
+<div class="article-share" id="share">
 
+  <div data-url="http://nevernil.com/2015/01/14/-bridge相关/" data-title="__bridge相关 | hades_h&#39; blog" data-tsina="null" class="share clearfix">
+  </div>
 
 </div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/01/05/Markdown学习/"  title="Markdown学习">
+ <strong>NEXT:</strong><br/> 
+ <span>Markdown学习
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="__bridge相关" data-thread-key="-bridge相关" data-author-key="hades_h" data-url="http://nevernil.com/post/-bridge相关"></div>
+	
+</section>
+
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -209,8 +221,8 @@ __bridge 只做类型转换，不修改对</p>
 
 </aside>
 </div>
-  </div>
-  <footer><div id="footer" >
+    </div>
+    <footer><div id="footer" >
     
             <p class="copyright"> © 2015 
 		
@@ -246,6 +258,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -265,7 +279,79 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
 
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"nevernil"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
@@ -345,5 +431,5 @@ $(document).ready(function(){
 
 
   </body>
- </html>
+</html>
 
