@@ -3,8 +3,52 @@
 
     
   <url>
+    <loc>http://nevernil.com/2015/01/28/%E6%B7%BB%E5%8A%A0git%E7%9A%84commit%E4%BD%9C%E4%B8%BA%E7%89%88%E6%9C%AC%E5%8F%B7/</loc>
+    <lastmod>2015-01-29T01:59:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>添加git的commit作为版本号</title>
+        <pubTime>2015-01-28T09:31:46.000Z</pubTime>
+        
+        <tag>git </tag>
+         
+        <tag>shell </tag>
+         
+         <content><![CDATA[<p>之前使用的是svn，svn每次提交的版本号是一个数字，用来作为内部版本号，确定打出的包所对应的代码库版本。<br>后来换到git，发现git每一次commit的版本号是个哈希值。如果想要继续使用数字作为版本号的话，也是可以的，只需要计算出commit的次数就可以了。</p>
+<p>获取所有分支的提交：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rev-<span class="keyword">list</span> --<span class="keyword">all</span>|wc -<span class="keyword">l</span></div></pre></td></tr></table></figure>
+
+<p>把<code>--all</code>替换为<code>HEAD</code>，就可以获取当前分支的提交次数了。</p>
+<p>其实使用commit的哈希值作为版本号也是可以的，获取最新的一次提交的哈希值的前七个字符（应该够用了），<br>这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rev-<span class="keyword">list</span> HEAD --abbrev-commit --<span class="built_in">max</span>-<span class="built_in">count</span>=<span class="number">1</span></div></pre></td></tr></table></figure>
+
+<hr>
+<p>这篇<a href="http://imi.im/20/" target="_blank" rel="external">文章</a>，是如何把git提交次数作为app的内部版本号的。</p>
+<p>但是原文有个问题，使用了<code>CFBundleShortVersionString</code>，这个应该是应用的版本号，比如<code>2.1</code>、<code>3.0</code>，这里其实应该设置的是build号，应该使用<code>CFBundleVersion</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/libexec/PlistBuddy -c "Set :CFBundleVersion <span class="smartquote">`git rev-list HEAD | wc -l | awk '</span>{print $1}<span class="emphasis">'`" "${TARGET_BUILD_DIR}"/${INFOPLIST_PATH}</span></div></pre></td></tr></table></figure>
+
+<p>这里用到了<code>PlistBuddy</code>，这是个可以对plist文件进行读写的工具，终端中执行<code>/usr/libexec/PlistBuddy -h</code>就可以查看其帮助了。</p>
+<hr>
+<p>对于创建framework的工程，没有info.plist文件，只能自己设置了。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">FMK_NAME=</span>MAMapKit</div><div class="line"><span class="variable">FMK_GIT=</span>`git rev-list HEAD --abbrev-commit <span class="variable">--max-count=</span><span class="number">1</span>`</div><div class="line"><span class="variable">FMK_VERSION=</span><span class="string">"2.5.0.<span class="subst">${FMK_GIT}</span>"</span></div><div class="line"><span class="variable">INSTALL_DIR=</span>${SRCROOT}/Products/${FMK_NAME}.framework</div></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>注：以上脚本需要放到target的Run Script中去执行</strong></p>
+]]></content>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://nevernil.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nevernil.com/2015/01/14/-bridge%E7%9B%B8%E5%85%B3/</loc>
-    <lastmod>2015-01-14T08:53:45.000Z</lastmod>
+    <lastmod>2015-01-14T09:19:59.000Z</lastmod>
     <data>
         <display>
         <title>__bridge相关</title>

@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>__bridge相关 | hades_h&#39; blog</title>
+    <title>添加git的commit作为版本号 | hades_h&#39; blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="hades_h">
     
-    <meta name="description" content="当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到__bridge, __bridge_retained 和 __bridge_transfer 三个转换关键字。
-__bridge 只做类型转换，不修改对象生命周期的管理权；">
+    <meta name="description" content="之前使用的是svn，svn每次提交的版本号是一个数字，用来作为内部版本号，确定打出的包所对应的代码库版本。后来换到git，发现git每一次commit的版本号是个哈希值。如果想要继续使用数字作为版本号的话，也是可以的，只需要计算出commit的次数就可以了。
+获取所有分支的提交：
+1git rev-">
     
     
     
@@ -78,15 +79,15 @@ __bridge 只做类型转换，不修改对象生命周期的管理权；">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/01/14/-bridge相关/" title="__bridge相关" itemprop="url">__bridge相关</a>
+      <a href="/2015/01/28/添加git的commit作为版本号/" title="添加git的commit作为版本号" itemprop="url">添加git的commit作为版本号</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://nevernil.com" title="hades_h">hades_h</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-01-14T07:08:58.000Z" itemprop="datePublished">1月 14 2015</time>
-    更新日期:<time datetime="2015-01-14T09:19:59.000Z" itemprop="dateModified">1月 14 2015</time>
+    <time datetime="2015-01-28T09:31:46.000Z" itemprop="datePublished">1月 28 2015</time>
+    更新日期:<time datetime="2015-01-29T01:59:01.000Z" itemprop="dateModified">1月 29 2015</time>
     
   </p>
 </header>
@@ -98,21 +99,33 @@ __bridge 只做类型转换，不修改对象生命周期的管理权；">
 		
 		</div>
 		
-		<p>当CFObject和NSObject相互转换时，由于ARC不能管理Core Foundation对象的生命周期, 所以需要用到<code>__bridge</code>, <code>__bridge_retained</code> 和 <code>__bridge_transfer</code> 三个转换关键字。</p>
-<p><strong>__bridge</strong> 只做类型转换，不修改对象生命周期的管理权；</p>
-<p><strong>__bridge_retained</strong> 将Objective-C的对象转换为Core Foundation的对象，同时将对象内存的管理权交给CF，后续需要使用CFRelease或者相关方法来释放对象；</p>
-<p><strong>__bridge_transfer</strong> 将Core Foundation的对象转换为Objective-C的对象，同时将对象内存的管理权交给ARC。</p>
-<p><code>NSObject.h</code>中有两个方法，<code>CFBridgingRetain</code> 和 <code>CFBridgingRelease</code>.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NS_INLINE CF_RETURNS_RETAINED CFTypeRef CFBridgingRetain(<span class="keyword">id</span> X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_retained CFTypeRef)X;</div><div class="line">}</div><div class="line"></div><div class="line">NS_INLINE <span class="keyword">id</span> CFBridgingRelease(CFTypeRef CF_CONSUMED X) {</div><div class="line">    <span class="keyword">return</span> (__bridge_transfer <span class="keyword">id</span>)X;</div><div class="line">}</div></pre></td></tr></table></figure>
+		<p>之前使用的是svn，svn每次提交的版本号是一个数字，用来作为内部版本号，确定打出的包所对应的代码库版本。<br>后来换到git，发现git每一次commit的版本号是个哈希值。如果想要继续使用数字作为版本号的话，也是可以的，只需要计算出commit的次数就可以了。</p>
+<p>获取所有分支的提交：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rev-<span class="keyword">list</span> --<span class="keyword">all</span>|wc -<span class="keyword">l</span></div></pre></td></tr></table></figure>
 
-<p>其中<code>CFBridgingRetain</code>执行后必须执行<code>CFRelease</code>来对转换的对象进行释放。</p>
+<p>把<code>--all</code>替换为<code>HEAD</code>，就可以获取当前分支的提交次数了。</p>
+<p>其实使用commit的哈希值作为版本号也是可以的，获取最新的一次提交的哈希值的前七个字符（应该够用了），<br>这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rev-<span class="keyword">list</span> HEAD --abbrev-commit --<span class="built_in">max</span>-<span class="built_in">count</span>=<span class="number">1</span></div></pre></td></tr></table></figure>
+
+<hr>
+<p>这篇<a href="http://imi.im/20/" target="_blank" rel="external">文章</a>，是如何把git提交次数作为app的内部版本号的。</p>
+<p>但是原文有个问题，使用了<code>CFBundleShortVersionString</code>，这个应该是应用的版本号，比如<code>2.1</code>、<code>3.0</code>，这里其实应该设置的是build号，应该使用<code>CFBundleVersion</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/libexec/PlistBuddy -c "Set :CFBundleVersion <span class="smartquote">`git rev-list HEAD | wc -l | awk '</span>{print $1}<span class="emphasis">'`" "${TARGET_BUILD_DIR}"/${INFOPLIST_PATH}</span></div></pre></td></tr></table></figure>
+
+<p>这里用到了<code>PlistBuddy</code>，这是个可以对plist文件进行读写的工具，终端中执行<code>/usr/libexec/PlistBuddy -h</code>就可以查看其帮助了。</p>
+<hr>
+<p>对于创建framework的工程，没有info.plist文件，只能自己设置了。如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">FMK_NAME=</span>MAMapKit</div><div class="line"><span class="variable">FMK_GIT=</span>`git rev-list HEAD --abbrev-commit <span class="variable">--max-count=</span><span class="number">1</span>`</div><div class="line"><span class="variable">FMK_VERSION=</span><span class="string">"2.5.0.<span class="subst">${FMK_GIT}</span>"</span></div><div class="line"><span class="variable">INSTALL_DIR=</span>${SRCROOT}/Products/${FMK_NAME}.framework</div></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>注：以上脚本需要放到target的Run Script中去执行</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/objc/">objc</a><a href="/tags/arc/">arc</a>
+  <span></span> <a href="/tags/git/">git</a><a href="/tags/shell/">shell</a>
   </div>
 
 
@@ -125,7 +138,7 @@ __bridge 只做类型转换，不修改对象生命周期的管理权；">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://nevernil.com/2015/01/14/-bridge相关/" data-title="__bridge相关 | hades_h&#39; blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://nevernil.com/2015/01/28/添加git的commit作为版本号/" data-title="添加git的commit作为版本号 | hades_h&#39; blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -134,19 +147,11 @@ __bridge 只做类型转换，不修改对象生命周期的管理权；">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/01/28/添加git的commit作为版本号/" title="添加git的commit作为版本号">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  添加git的commit作为版本号</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/01/05/Markdown学习/"  title="Markdown学习">
+<a href="/2015/01/14/-bridge相关/"  title="__bridge相关">
  <strong>NEXT:</strong><br/> 
- <span>Markdown学习
+ <span>__bridge相关
 </span>
 </a>
 </div>
@@ -156,7 +161,7 @@ __bridge 只做类型转换，不修改对象生命周期的管理权；">
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="__bridge相关" data-thread-key="-bridge相关" data-author-key="hades_h" data-url="http://nevernil.com/post/-bridge相关"></div>
+	<div class="ds-thread" data-title="添加git的commit作为版本号" data-thread-key="添加git的commit作为版本号" data-author-key="hades_h" data-url="http://nevernil.com/post/添加git的commit作为版本号"></div>
 	
 </section>
 
